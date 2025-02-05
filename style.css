@@ -1,19 +1,42 @@
-body {
+/* 
+  1) Use a sweet gradient background 
+  2) Add floating hearts with an animated pseudo-element
+*/
+
+html, body {
   margin: 0;
   padding: 0;
-  background-color: #fce4ec; /* Light pink */
-  font-family: Arial, sans-serif;
+  height: 100%;
+  font-family: "Arial", sans-serif;
+}
+
+/* 
+  BODY: A vertical gradient and an absolutely-positioned layer for floating hearts
+*/
+body {
+  background: linear-gradient(180deg, #ffe6ec 0%, #fce4ec 50%, #f8bbd0 100%);
+  overflow-x: hidden; /* Hide horizontal scroll if hearts move off screen */
+  position: relative;
+}
+
+/* 
+  Container (the white card) 
+*/
+.container {
+  background-color: #ffffffcc; /* White box, slightly transparent */
+  backdrop-filter: blur(3px);
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.container {
-  margin-top: 50px;
-}
-
 h1 {
-  color: #e91e63; /* Bright pink */
+  color: #e91e63;
   margin-bottom: 30px;
-  font-size: 2.5em;
+  font-size: 2.5rem;
 }
 
 .buttons {
@@ -23,14 +46,14 @@ h1 {
 button {
   padding: 15px 30px;
   margin: 10px;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   cursor: pointer;
   border: none;
   border-radius: 8px;
   transition: background 0.3s;
 }
 
-/* Yes button styling */
+/* Sí button styling */
 #yesBtn {
   background-color: #e91e63;
   color: white;
@@ -51,10 +74,60 @@ button {
   background-color: #f8bbd0;
 }
 
-/* Hide messages by default */
+/* Messages are hidden by default */
 .message {
   display: none;
   margin-top: 20px;
   font-size: 1.4em;
   color: #880e4f;
+}
+
+.animateImage {
+  width: 400px;
+  margin-top: 10px;
+}
+
+/* 
+  -----------------------------------------
+  2) FLOATING HEARTS ANIMATION (Optional)
+  -----------------------------------------
+  We'll create a pseudo-element for <body>,
+  duplicating a heart shape multiple times 
+  drifting down the screen.
+*/
+
+/* Heart shape background for reference:
+   A small red/pink heart shape you can find 
+   from an external image or create in CSS. 
+   Below we use a simple data URL as an example, 
+   but you could also do: url('path/to/heart.png') 
+   or url('https://some-site.com/heart.png')
+*/
+
+/* 
+   If you want to keep it simpler, 
+   just remove these floating hearts styles. 
+*/
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='36' viewBox='0 0 40 36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23ff9bb6' d='M20 6.5c0-2.5 2-4.5 4.5-4.5a4.5 4.5 0 013.8 7c-1 1.2-2.5 2.3-3.9 3.4C23 14.5 21 16 20 17c-1-1-3-2.5-4.4-4-1.5-1.2-2.9-2.3-3.9-3.4A4.5 4.5 0 0119.5 2C22 2 24 4 24 6.5c0 1.2-.4 2.3-1.1 3.3C22.4 10.7 21.3 11.6 20 12.8c-1.3-1.2-2.4-2.1-2.9-3-1-1-1.4-2.2-1.4-3.3z'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 40px 36px;
+  animation: floatHearts 30s linear infinite;
+  opacity: 0.3;
+}
+
+/* 
+  Move the hearts from top to bottom infinitely. 
+  Adjust keyframes as you like for speed. 
+*/
+@keyframes floatHearts {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 600px; }
 }
