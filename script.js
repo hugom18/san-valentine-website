@@ -14,3 +14,4 @@ noBtn.addEventListener('click', () => {
   noMessage.style.display = 'block';
   yesMessage.style.display = 'none';
 });
+
